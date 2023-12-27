@@ -1,5 +1,5 @@
 package planner
-
+//описиваем структуры в соответствии с таблицами в бд 
 type TodoList struct {
 	Id          int    `json:"id"`
 	Title       string `json:"title"`
