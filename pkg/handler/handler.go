@@ -11,28 +11,28 @@ func (h *Handler) InitRoutes() *gin.Engine {
 	//объявляем методы, сгруппировав их по маршрутам
 	auth := router.Group("/auth") //группа auth
 	{
-		auth.POST("/sign-up") //эндпоинт
-		auth.POST("/sign-in") //эндпоинт
+		auth.POST("/sign-up", h.signUp) //эндпоинт
+		auth.POST("/sign-in", h.signIn) //эндпоинт
 	}
 	api := router.Group("/api") //группа api будет использоваться для эндопинтов работ со списками и их задачами
 	{
 		lists := api.Group("/lists") //внутри группы api создаем еще одну группу lists,
 		// которая будет использована для работы со списками
 		{
-			lists.POST("/")      // создание списка
-			lists.GET("/")       // получение всех списков
-			lists.GET("/:id")    // получение всех списков по id
-			lists.PUT("/:id")    // редактирование списка
-			lists.DELETE("/:id") // удаление списка
+			lists.POST("/", h.createList)      // создание списка
+			lists.GET("/", h.getAllLists)      // получение всех списков
+			lists.GET("/:id", h.getListById)   // получение всех списков по id
+			lists.PUT("/:id", h.updateList)    // редактирование списка
+			lists.DELETE("/:id", h.deleteList) // удаление списка
 			//используя двоеточие в маршруте эндпоинта мы указываем,
 			//что тут может быть любое значение, к которому мы можем обратиться по имени параметра id (фишка gin)
-			items := lists.Group(":id/items") //группа для задач списка, делаем аналогично написанному выше 
+			items := lists.Group(":id/items") //группа для задач списка, делаем аналогично написанному выше
 			{
-				items.POST("/")
-				items.GET("/")
-				items.GET("/:item_id")
-				lists.PUT("/:item_id")
-				lists.DELETE("/:item_id")
+				items.POST("/", h.createItem)
+				items.GET("/", h.getAllItems)
+				items.GET("/:item_id", h.getItemById)
+				lists.PUT("/:item_id", h.updateItem)
+				lists.DELETE("/:item_id", h.deleteItem)
 			}
 		}
 	}
