@@ -1,8 +1,16 @@
 package handler
 
-import "github.com/gin-gonic/gin"
+import (
+	"Planner/pkg/service"
+	"github.com/gin-gonic/gin"
+)
 
 type Handler struct {
+	services *service.Service //по аналогии наши обработчики будут вызывать методы сервисов поэтому добавим нашу структуру указатель на сервисы
+}
+
+func NewHandler(services *service.Service) *Handler { // также создадим конструктор в котором будем внедрять зависимости сервиса
+	return &Handler{services: services}
 }
 
 func (h *Handler) InitRoutes() *gin.Engine {

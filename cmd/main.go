@@ -3,12 +3,16 @@ package main
 import (
 	"Planner"
 	"Planner/pkg/handler"
+	"Planner/pkg/repository"
+	"Planner/pkg/service"
 	"log"
 )
 
-// основная логика здесь 
+// основная логика здесь
 func main() {
-	handlers := new(handler.Handler)                               //создаем экземпляр хендлер из нашего пакета pkg.handler
+	repos := repository.NewRepository() //объявлем все зависимости в нужном порядке
+	services := service.NewService(repos)
+	handlers := handler.NewHandler(services)
 	srv := new(planner.Server)                                     // инициалиируем экзепляр сервера
 	if err := srv.Run("8000", handlers.InitRoutes()); err != nil { //если во время работы метод ран возвращает ошибку,
 		// тогда вызываем метод Fatal, который выведет ошибку и выйдет из приложения
