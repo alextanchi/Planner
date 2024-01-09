@@ -6,7 +6,7 @@ import (
 	"log"
 )
 
-// комментарий
+// основная логика здесь 
 func main() {
 	handlers := new(handler.Handler)                               //создаем экземпляр хендлер из нашего пакета pkg.handler
 	srv := new(planner.Server)                                     // инициалиируем экзепляр сервера
