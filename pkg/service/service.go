@@ -17,6 +17,7 @@ type Service struct {
 }
 
 // объявляем конструктор
+
 func NewService(repos *repository.Repository) *Service { //сервисы будут обращаться к БД,
 	// поэтому объявляем указатель на структуру репозитория в качестве аргумента
 	return &Service{}
