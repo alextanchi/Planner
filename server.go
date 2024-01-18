@@ -10,7 +10,7 @@ type Server struct {
 	httpServer *http.Server
 }
 
-func (s *Server) Run(port string, handler http.Handler) error { //запуск //добавили в метод run аргумент хендлер типа интерфейса хендлер
+func (s *Server) Run(port string, handler http.Handler) error { //запуск, добавили в метод run аргумент хендлер типа интерфейса хендлер
 	s.httpServer = &http.Server{
 		Addr:           ":" + port,
 		Handler:        handler,          //передали handler в объект http сервера
